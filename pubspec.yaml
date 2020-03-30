@@ -1,4 +1,4 @@
-name: flutterwebscaffold
+name: web_scaffold
 description: flutter web scaffold
 version: 0.0.1
 author:
@@ -10,6 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dio: 3.0.9
+  localstorage: 3.0.1+4
+  flutter_screenutil: 1.0.2
+  cached_network_image: 2.0.0
 
 dev_dependencies:
   flutter_test:

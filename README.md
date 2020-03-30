@@ -1,4 +1,4 @@
-# flutterwebscaffold
+# web_scaffold
 
 flutter web scaffold
 
