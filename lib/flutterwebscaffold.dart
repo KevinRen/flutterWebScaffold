@@ -1,3 +1,3 @@
 library flutterwebscaffold;
 
-export 'root/root.dart';
+export 'root/rootView.dart';
