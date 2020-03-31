@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'utils/size.dart';
+import 'utils/http.dart';
 
 class RootView {
   final BuildContext context;
@@ -39,6 +40,12 @@ class RootView {
     }
 
     return _query;
+  }
+
+  void setHttpBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
+
+  Future request({ @required String url,  Map data }) async {
+    return await HttpRequest.request(url, data: data);
   }
 
   setDesignSize({double width: 1920, double height: 1080}) => AppSize.setDesignSize(context, width: width, height: height);
