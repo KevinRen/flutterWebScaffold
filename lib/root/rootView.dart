@@ -9,12 +9,13 @@ class RootView {
 
   Widget build({
     @required Widget body,
+    bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
-    return Scaffold(
+    return isPage ? Scaffold(
       backgroundColor: backgroundColor,
       body: body == null ? Container() : body,
-    );
+    ) : body;
   }
 
   gotoPage(String path, {String query, Map arguments}) {
