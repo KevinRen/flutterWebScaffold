@@ -20,7 +20,7 @@ class RootView {
 
   gotoPage(String path, {String query, Map arguments}) {
     List _path = path.split('.');
-    String _query = query != null ? '/$query' : '';
+    String _query = query != null ? '$query' : '';
     Navigator.of(context).pushNamed('/${_path[1]}$_query', arguments: arguments);
   }
 

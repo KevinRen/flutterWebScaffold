@@ -111,7 +111,7 @@ class AppRouter {
   }
 
   static TargetPath filterPath(String path) {
-    List _path = path.split('/');
-    return TargetPath(path: _path[1]);
+    List<String> _path = path.split('/');
+    return TargetPath(path: _path[1].contains('?') ? _path[1].split('?')[0] : _path[1]);
   }
 }
