@@ -28,6 +28,7 @@ class RootView {
 
   Map<String, String> pageQuery() {
     String _path = ModalRoute.of(context).settings.name;
+    print('rootView path $_path');
     List<String> _pathSplit = _path.contains('?') ? _path.split('?') : List();
     Map<String, String> _query = Map();
     if (_pathSplit.length > 0) {
