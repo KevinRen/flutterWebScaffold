@@ -50,7 +50,7 @@ class RootView {
     return await HttpRequest.request(url, data: data);
   }
 
-  setDesignSize({double width: 1920, double height: 1080}) => AppSize.setDesignSize(context, width: width, height: height);
+  setDesignSize({double width: 1920, double height: 1080}) => {}; // AppSize.setDesignSize(context, width: width, height: height);
 
   size(double size) => size; // AppSize.size(size);
 
