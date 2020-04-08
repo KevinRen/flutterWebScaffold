@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'utils/size.dart';
+//import 'utils/size.dart';
 import 'utils/http.dart';
 
 class RootView {
@@ -49,10 +49,4 @@ class RootView {
   Future request({ @required String url,  Map data }) async {
     return await HttpRequest.request(url, data: data);
   }
-
-  setDesignSize({double width: 1920, double height: 1080}) => {}; // AppSize.setDesignSize(context, width: width, height: height);
-
-  size(double size) => size; // AppSize.size(size);
-
-  fontSize(double size) => size; // AppSize.fontSize(size);
 }
