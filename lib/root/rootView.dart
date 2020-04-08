@@ -52,7 +52,7 @@ class RootView {
 
   setDesignSize({double width: 1920, double height: 1080}) => AppSize.setDesignSize(context, width: width, height: height);
 
-  size(double size) => AppSize.size(size);
+  size(double size) => size; // AppSize.size(size);
 
-  fontSize(double size) => AppSize.fontSize(size);
+  fontSize(double size) => size; // AppSize.fontSize(size);
 }
