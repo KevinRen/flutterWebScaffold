@@ -20,7 +20,10 @@ class RootView {
         onKeyCallback: onKey != null ? onKey : _onKey,
         child: body,
       ),
-    ) : body;
+    ) : body == null ? Container() : BrowserKeyboard(
+      onKeyCallback: onKey != null ? onKey : _onKey,
+      child: body
+    );
   }
 
   _onKey(KeyInfo keyInfo) {}
