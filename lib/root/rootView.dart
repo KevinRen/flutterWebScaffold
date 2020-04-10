@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //import 'utils/size.dart';
-import 'utils/keyboard.dart';
+//import 'utils/keyboard.dart';
 import 'utils/http.dart';
 //import 'utils/type.dart';
 
@@ -22,7 +22,7 @@ class RootView {
 
   Widget build({
     @required Widget body,
-    OnKeyCallback onKey,
+    OnKeyCallback onKeyCallback,
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
@@ -31,20 +31,20 @@ class RootView {
       body: body == null ? Container() : RawKeyboardListener(
         focusNode: FocusNode(),
         onKey: (RawKeyEvent event) {
-          _manager(event, onKey);
+          _keyOnManager(event, onKeyCallback);
         },
         child: body,
       ),
     ) : body == null ? Container() : RawKeyboardListener(
         focusNode: FocusNode(),
         onKey: (RawKeyEvent event) {
-          _manager(event, onKey);
+          _keyOnManager(event, onKeyCallback);
         },
       child: body
     );
   }
 
-  _manager(RawKeyEvent key, OnKeyCallback onKey) async {
+  _keyOnManager(RawKeyEvent key, OnKeyCallback onKey) async {
     String _keyType = key.runtimeType.toString();
     print(key);
     if (_keyType == 'RawKeyDownEvent' || _keyType == 'RawKeyUpEvent') {
@@ -53,10 +53,6 @@ class RootView {
       print(data);
       onKey(KeyInfo(code: data.code, keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
     }
-  }
-
-  _onKey(KeyInfo keyInfo) {
-    print(keyInfo);
   }
 
   gotoPage(String path, {String query, Map arguments}) {
