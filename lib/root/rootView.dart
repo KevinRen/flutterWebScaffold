@@ -46,11 +46,9 @@ class RootView {
 
   _keyOnManager(RawKeyEvent key, OnKeyCallback onKey) async {
     String _keyType = key.runtimeType.toString();
-    print(key);
     if (_keyType == 'RawKeyDownEvent' || _keyType == 'RawKeyUpEvent') {
       RawKeyEventDataWeb data = key.data;
 
-      print(data);
       if (onKey != null) onKey(KeyInfo(code: data.code, keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
     }
   }
