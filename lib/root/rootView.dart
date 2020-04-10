@@ -17,11 +17,13 @@ class RootView {
     return isPage ? Scaffold(
       backgroundColor: backgroundColor,
       body: body == null ? Container() : BrowserKeyboard(
-        onKeyCallback: onKey != null ? onKey : () {},
+        onKeyCallback: onKey != null ? onKey : _onKey,
         child: body,
       ),
     ) : body;
   }
+
+  _onKey(KeyInfo keyInfo) {}
 
   gotoPage(String path, {String query, Map arguments}) {
     List _path = path.split('.');
