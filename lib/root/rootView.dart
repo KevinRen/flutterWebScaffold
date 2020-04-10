@@ -51,7 +51,7 @@ class RootView {
       RawKeyEventDataWeb data = key.data;
 
       print(data);
-      onKey(KeyInfo(code: data.code, keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
+      if (onKey != null) onKey(KeyInfo(code: data.code, keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
     }
   }
 
