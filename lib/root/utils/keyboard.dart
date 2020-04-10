@@ -21,7 +21,7 @@ class BrowserKeyboard extends StatelessWidget {
   BrowserKeyboard({
     @required this.child,
     @required this.onKeyCallback,
-    this.autoFocus,
+    this.autoFocus = false,
     this.focusNode,
   });
 
@@ -36,7 +36,7 @@ class BrowserKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawKeyboardListener(
-      focusNode: focusNode,
+      focusNode: focusNode != null ? focusNode : FocusNode(),
       autofocus: autoFocus,
       onKey: _manager,
       child: child,
