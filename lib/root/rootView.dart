@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'utils/http.dart';
+import 'comm/comm.dart';
 //import 'utils/size.dart';
 //import 'utils/keyboard.dart';
-import 'utils/http.dart';
 //import 'utils/type.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
@@ -53,9 +54,9 @@ class RootView {
     }
   }
 
-  gotoPage(String path, {String query, Map arguments}) {
+  gotoPage(String path, {Map query, Map arguments}) {
     List _path = path.split('.');
-    String _query = query != null ? '$query' : '';
+    String _query = query != null ? '${Comm.mapToQuery(query)}' : '';
     Navigator.of(context).pushNamed('/${_path[1]}$_query', arguments: arguments);
   }
 
