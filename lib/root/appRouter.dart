@@ -112,6 +112,12 @@ class AppRouter {
 
   static TargetPath filterPath(String path) {
     List<String> _path = path.split('/');
-    return TargetPath(path: _path[1].contains('?') ? _path[1].split('?')[0] : _path[1]);
+    String _route = _path[1].contains('?') ? _path[1].split('?')[0] : _path[1];
+    if (_route.isEmpty) {
+      routers.forEach((key, value) {
+        if (value.isDefault == true) _route = value.path;
+      });
+    }
+    return TargetPath(path: _route);
   }
 }
