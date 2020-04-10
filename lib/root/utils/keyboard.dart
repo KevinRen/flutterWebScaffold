@@ -1,16 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-
-typedef OnKeyCallback(KeyInfo keyInfo);
-
-enum KeyType { keyDown, keyUp }
-
-class KeyInfo {
-  final int code;
-  final KeyType keyType;
-  KeyInfo({ @required this.code, @required this.keyType });
-}
-
+import 'type.dart';
 
 class BrowserKeyboard extends StatelessWidget {
   final Widget child;
@@ -25,11 +15,14 @@ class BrowserKeyboard extends StatelessWidget {
     this.focusNode,
   });
 
-  _manager(RawKeyEvent key) {
+  _manager(RawKeyEvent key) async {
     String _keyType = key.runtimeType.toString();
+    print(key);
     if (_keyType == 'RawKeyDownEvent' || _keyType == 'RawKeyUpEvent') {
       RawKeyEventDataWeb data = key.data;
-      onKeyCallback(KeyInfo(code: int.parse(data.code), keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
+
+      print(data);
+      onKeyCallback(KeyInfo(code: data.code, keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
     }
   }
 

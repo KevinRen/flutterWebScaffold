@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //import 'utils/size.dart';
 import 'utils/keyboard.dart';
 import 'utils/http.dart';
+import 'utils/type.dart';
 
 class RootView {
   final BuildContext context;
@@ -16,8 +18,11 @@ class RootView {
   }) {
     return isPage ? Scaffold(
       backgroundColor: backgroundColor,
-      body: body == null ? Container() : BrowserKeyboard(
-        onKeyCallback: onKey != null ? onKey : _onKey,
+      body: body == null ? Container() : RawKeyboardListener(
+        focusNode: FocusNode(),
+        onKey: (RawKeyEvent event) {
+          _manager(event, onKey);
+        },
         child: body,
       ),
     ) : body == null ? Container() : BrowserKeyboard(
@@ -26,7 +31,20 @@ class RootView {
     );
   }
 
-  _onKey(KeyInfo keyInfo) {}
+  _manager(RawKeyEvent key, OnKeyCallback onKey) async {
+    String _keyType = key.runtimeType.toString();
+    print(key);
+    if (_keyType == 'RawKeyDownEvent' || _keyType == 'RawKeyUpEvent') {
+      RawKeyEventDataWeb data = key.data;
+
+      print(data);
+      onKey(KeyInfo(code: data.code, keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
+    }
+  }
+
+  _onKey(KeyInfo keyInfo) {
+    print(keyInfo);
+  }
 
   gotoPage(String path, {String query, Map arguments}) {
     List _path = path.split('.');
