@@ -11,7 +11,8 @@ class KeyInfo {
   KeyInfo({ @required this.code, @required this.keyType });
 }
 
-class BrowserKeyboard {
+
+class BrowserKeyboard extends StatelessWidget {
   final Widget child;
   final bool autoFocus;
   final FocusNode focusNode;
@@ -32,6 +33,7 @@ class BrowserKeyboard {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return RawKeyboardListener(
       focusNode: focusNode,
