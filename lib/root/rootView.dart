@@ -10,19 +10,18 @@ class RootView {
 
   Widget build({
     @required Widget body,
+    OnKeyCallback onKey,
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
     return isPage ? Scaffold(
       backgroundColor: backgroundColor,
       body: body == null ? Container() : BrowserKeyboard(
-        onKeyCallback: onKey,
+        onKeyCallback: onKey != null ? onKey : () {},
         child: body,
       ),
     ) : body;
   }
-
-  onKey(KeyInfo keyInfo) => keyInfo;
 
   gotoPage(String path, {String query, Map arguments}) {
     List _path = path.split('.');
