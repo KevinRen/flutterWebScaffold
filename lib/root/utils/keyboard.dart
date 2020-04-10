@@ -28,7 +28,7 @@ class BrowserKeyboard extends StatelessWidget {
   _manager(RawKeyEvent key) {
     String _keyType = key.runtimeType.toString();
     if (_keyType == 'RawKeyDownEvent' || _keyType == 'RawKeyUpEvent') {
-      RawKeyEventDataWeb data = key.data as RawKeyEventDataWeb;
+      RawKeyEventDataWeb data = key.data;
       onKeyCallback(KeyInfo(code: int.parse(data.code), keyType: _keyType == 'RawKeyDownEvent' ? KeyType.keyDown : KeyType.keyUp));
     }
   }
