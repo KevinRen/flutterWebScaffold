@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'utils/size.dart';
+import 'utils/keyboard.dart';
 import 'utils/http.dart';
 
 class RootView {
@@ -14,9 +15,14 @@ class RootView {
   }) {
     return isPage ? Scaffold(
       backgroundColor: backgroundColor,
-      body: body == null ? Container() : body,
+      body: body == null ? Container() : BrowserKeyboard(
+        onKeyCallback: onKey,
+        child: body,
+      ),
     ) : body;
   }
+
+  onKey(KeyInfo keyInfo) => keyInfo;
 
   gotoPage(String path, {String query, Map arguments}) {
     List _path = path.split('.');
