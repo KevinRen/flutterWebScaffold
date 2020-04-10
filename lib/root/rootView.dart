@@ -3,7 +3,17 @@ import 'package:flutter/services.dart';
 //import 'utils/size.dart';
 import 'utils/keyboard.dart';
 import 'utils/http.dart';
-import 'utils/type.dart';
+//import 'utils/type.dart';
+
+typedef void OnKeyCallback(KeyInfo keyInfo);
+
+enum KeyType { keyDown, keyUp }
+
+class KeyInfo {
+  final String code;
+  final KeyType keyType;
+  KeyInfo({ @required this.code, @required this.keyType });
+}
 
 class RootView {
   final BuildContext context;
@@ -25,8 +35,11 @@ class RootView {
         },
         child: body,
       ),
-    ) : body == null ? Container() : BrowserKeyboard(
-      onKeyCallback: onKey != null ? onKey : _onKey,
+    ) : body == null ? Container() : RawKeyboardListener(
+        focusNode: FocusNode(),
+        onKey: (RawKeyEvent event) {
+          _manager(event, onKey);
+        },
       child: body
     );
   }
