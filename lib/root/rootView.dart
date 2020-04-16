@@ -37,7 +37,7 @@ class RootView {
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
-    if (config != null && HttpRequest.baseUrl != null) {
+    if (config != null && HttpRequest.baseUrl.isNotEmpty) {
       HttpRequest.baseUrl = config.baseUrl;
     }
 
@@ -99,7 +99,12 @@ class RootView {
 //    _requestInterceptor = interceptor;
 //  }
 
-  Future request(RequestBuilder requestBuilder) async {
+  request(RequestBuilder requestBuilder) async {
+//    if (config.interceptor == null) {
+//      return await HttpRequest.request(requestBuilder);
+//    } else {
+//
+//    }
     Map response = await HttpRequest.request(requestBuilder);
     return config.interceptor == null ? response : config.interceptor(response);
   }
