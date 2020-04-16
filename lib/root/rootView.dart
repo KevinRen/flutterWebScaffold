@@ -5,6 +5,7 @@ import 'comm/comm.dart';
 import 'comm.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
+typedef Future Interceptor(Map response);
 
 enum KeyType { keyDown, keyUp }
 
@@ -18,6 +19,8 @@ class RootView {
   final BuildContext context;
 
   RootView(this.context);
+
+  Interceptor _requestInterceptor;
 
   Widget build({
     @required Widget body,
@@ -79,7 +82,12 @@ class RootView {
 
   void setHttpBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
 
+  void setRequestInterceptor(Interceptor interceptor) {
+    _requestInterceptor = interceptor;
+  }
+
   Future request(RequestBuilder requestBuilder) async {
-    return await HttpRequest.request(requestBuilder);
+    Map response = await HttpRequest.request(requestBuilder);
+    return _requestInterceptor == null ? response : _requestInterceptor(response);
   }
 }
