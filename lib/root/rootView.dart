@@ -27,9 +27,8 @@ class KeyInfo {
 
 class RootView {
   final BuildContext context;
-  final RootConfig config;
 
-  RootView(this.context, {this.config});
+  RootView(this.context);
 
   Widget build({
     @required Widget body,
@@ -37,13 +36,6 @@ class RootView {
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
-    if (config != null) {
-      if (HttpRequest.baseUrl != null) {
-        HttpRequest.baseUrl = config.baseUrl;
-        print('********************* ${HttpRequest.baseUrl}');
-      }
-    }
-
     return isPage ? Scaffold(
       backgroundColor: backgroundColor,
       body: body == null ? Container() : RawKeyboardListener(
@@ -95,6 +87,8 @@ class RootView {
 
     return _query;
   }
+
+  void setBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
 
   Future request(RequestBuilder requestBuilder) async {
     return await HttpRequest.request(requestBuilder);
