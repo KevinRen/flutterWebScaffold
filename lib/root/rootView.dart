@@ -38,8 +38,8 @@ class RootView {
     Color backgroundColor: Colors.white
   }) {
     print('++++++++++++++++++++++ ${HttpRequest.baseUrl}');
-    if (config != null && HttpRequest.baseUrl != null) {
-      HttpRequest.baseUrl = config.baseUrl;
+    if (config != null) {
+      if (HttpRequest.baseUrl != null) HttpRequest.baseUrl = config.baseUrl;
       print('********************* ${HttpRequest.baseUrl}');
     }
 
