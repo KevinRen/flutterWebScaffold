@@ -38,7 +38,7 @@ class RootView {
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
-    if (config != null && HttpRequest.baseUrl.isNotEmpty) {
+    if (config != null && HttpRequest.baseUrl != null) {
       HttpRequest.baseUrl = config.baseUrl;
     }
 
@@ -99,6 +99,7 @@ class RootView {
       Map response = await HttpRequest.request(requestBuilder);
       return config.interceptor == null ? response : config.interceptor(response);
     } on DioError catch (e) {
+      print(e);
       throw Error();
     }
   }
