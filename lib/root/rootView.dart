@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'utils/http.dart';
 import 'comm/comm.dart';
 import 'comm.dart';
+import 'package:dio/dio.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
-typedef Map Interceptor(Map response);
+typedef Future Interceptor(Map response);
 
 class RootConfig {
   final String baseUrl;
@@ -93,19 +94,12 @@ class RootView {
     return _query;
   }
 
-//  void setHttpBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
-
-//  void setRequestInterceptor(Interceptor interceptor) {
-//    _requestInterceptor = interceptor;
-//  }
-
-  request(RequestBuilder requestBuilder) async {
-//    if (config.interceptor == null) {
-//      return await HttpRequest.request(requestBuilder);
-//    } else {
-//
-//    }
-    Map response = await HttpRequest.request(requestBuilder);
-    return config.interceptor == null ? response : config.interceptor(response);
+  Future request(RequestBuilder requestBuilder) async {
+    try {
+      Map response = await HttpRequest.request(requestBuilder);
+      return config.interceptor == null ? response : config.interceptor(response);
+    } on DioError catch (e) {
+      throw Error();
+    }
   }
 }
