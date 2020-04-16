@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
+import '../comm.dart';
 
 class HttpRequest {
   static Dio _dio;
@@ -24,18 +25,18 @@ class HttpRequest {
       }
     }
   }
-
-  static Future request(String url, {String token, Map data, List<Map<String, dynamic>> headerSetting}) async {
-    data = data == null ? Map() : data;
+  
+  static Future request(RequestBuilder requestBuilder) async {
+    Map data = requestBuilder.data == null ? Map() : requestBuilder.data;
 
     Dio dio = _createInstance();
-    if (headerSetting != null) {
-      dio.options.headers = _headers(headerSetting);
+    if (requestBuilder.headerSetting != null) {
+      dio.options.headers = _headers(requestBuilder.headerSetting);
     }
 
     CancelToken cancelToken = CancelToken();
-    if (token != null && token.isNotEmpty) tokens[token] = cancelToken;
-    Response response = await dio.post(url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
+    if (requestBuilder.token != null && requestBuilder.token.isNotEmpty) tokens[requestBuilder.token] = cancelToken;
+    Response response = await dio.post(requestBuilder.url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
 
     var result = response.data;
     if (result is String) {

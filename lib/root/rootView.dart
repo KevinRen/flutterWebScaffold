@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'utils/http.dart';
 import 'comm/comm.dart';
+import 'comm.dart';
 //import 'utils/size.dart';
 //import 'utils/keyboard.dart';
 //import 'utils/type.dart';
@@ -81,7 +82,7 @@ class RootView {
 
   void setHttpBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
 
-  Future request({ @required String url,  Map data }) async {
-    return await HttpRequest.request(url, data: data);
+  Future request(RequestBuilder requestBuilder) async {
+    return await HttpRequest.request(requestBuilder);
   }
 }
