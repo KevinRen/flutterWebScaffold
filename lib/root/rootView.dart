@@ -37,6 +37,7 @@ class RootView {
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
+    print('++++++++++++++++++++++ ${HttpRequest.baseUrl}');
     if (config != null && HttpRequest.baseUrl != null) {
       HttpRequest.baseUrl = config.baseUrl;
       print('********************* ${HttpRequest.baseUrl}');
