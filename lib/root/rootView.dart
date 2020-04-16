@@ -39,6 +39,7 @@ class RootView {
   }) {
     if (config != null && HttpRequest.baseUrl != null) {
       HttpRequest.baseUrl = config.baseUrl;
+      print('********************* ${HttpRequest.baseUrl}');
     }
 
     return isPage ? Scaffold(
