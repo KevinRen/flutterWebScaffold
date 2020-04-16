@@ -7,6 +7,16 @@ import 'comm.dart';
 typedef void OnKeyCallback(KeyInfo keyInfo);
 typedef Future Interceptor(Map response);
 
+class RootConfig {
+  final String baseUrl;
+  final Interceptor interceptor;
+
+  RootConfig({
+    @required this.baseUrl,
+    this.interceptor
+  });
+}
+
 enum KeyType { keyDown, keyUp }
 
 class KeyInfo {
@@ -17,10 +27,9 @@ class KeyInfo {
 
 class RootView {
   final BuildContext context;
+  final RootConfig config;
 
-  RootView(this.context);
-
-  Interceptor _requestInterceptor;
+  RootView(this.context, {this.config});
 
   Widget build({
     @required Widget body,
@@ -28,6 +37,10 @@ class RootView {
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
+    if (config != null && HttpRequest.baseUrl != null) {
+      HttpRequest.baseUrl = config.baseUrl;
+    }
+
     return isPage ? Scaffold(
       backgroundColor: backgroundColor,
       body: body == null ? Container() : RawKeyboardListener(
@@ -80,14 +93,14 @@ class RootView {
     return _query;
   }
 
-  void setHttpBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
+//  void setHttpBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
 
-  void setRequestInterceptor(Interceptor interceptor) {
-    _requestInterceptor = interceptor;
-  }
+//  void setRequestInterceptor(Interceptor interceptor) {
+//    _requestInterceptor = interceptor;
+//  }
 
   Future request(RequestBuilder requestBuilder) async {
     Map response = await HttpRequest.request(requestBuilder);
-    return _requestInterceptor == null ? response : _requestInterceptor(response);
+    return config.interceptor == null ? response : config.interceptor(response);
   }
 }
