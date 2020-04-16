@@ -37,7 +37,6 @@ class RootView {
     bool isPage = true,
     Color backgroundColor: Colors.white
   }) {
-    print('++++++++++++++++++++++ ${HttpRequest.baseUrl}');
     if (config != null) {
       if (HttpRequest.baseUrl != null) {
         HttpRequest.baseUrl = config.baseUrl;
@@ -98,32 +97,33 @@ class RootView {
   }
 
   Future request(RequestBuilder requestBuilder) async {
-    try {
-      Map response = await HttpRequest.request(requestBuilder);
-      if (MapUtil.getNum(response, 'result') > 0) {
-        if (response == null || response['data'] == null) {
-//        ToastUtil.show('数据异常,请联系管理员!');
-          throw Error();
-        } else if (MapUtil.getNum(response, 'result') == 101) {
-          print('...非强制更新');
-          return response;
-        } else {
-          return response;
-        }
-      } else {
-        if (MapUtil.getNum(response, 'result') == -101) {
-          print('...强制更新');
-        } else if (MapUtil.getNum(response, 'result') == -100) {
-          /// TODO:
-          print('未登录');
-        } else {
-          print(MapUtil.getStr(response, 'message'));
-        }
-      }
-//      return config.interceptor == null ? response : config.interceptor(response);
-    } on DioError catch (e) {
-      print(e);
-      throw Error();
-    }
+    return await HttpRequest.request(requestBuilder);
+//    try {
+//      Map response = await HttpRequest.request(requestBuilder);
+//      if (MapUtil.getNum(response, 'result') > 0) {
+//        if (response == null || response['data'] == null) {
+////        ToastUtil.show('数据异常,请联系管理员!');
+//          throw Error();
+//        } else if (MapUtil.getNum(response, 'result') == 101) {
+//          print('...非强制更新');
+//          return response;
+//        } else {
+//          return response;
+//        }
+//      } else {
+//        if (MapUtil.getNum(response, 'result') == -101) {
+//          print('...强制更新');
+//        } else if (MapUtil.getNum(response, 'result') == -100) {
+//          /// TODO:
+//          print('未登录');
+//        } else {
+//          print(MapUtil.getStr(response, 'message'));
+//        }
+//      }
+////      return config.interceptor == null ? response : config.interceptor(response);
+//    } on DioError catch (e) {
+//      print(e);
+//      throw Error();
+//    }
   }
 }
