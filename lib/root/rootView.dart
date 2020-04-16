@@ -3,9 +3,6 @@ import 'package:flutter/services.dart';
 import 'utils/http.dart';
 import 'comm/comm.dart';
 import 'comm.dart';
-//import 'utils/size.dart';
-//import 'utils/keyboard.dart';
-//import 'utils/type.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
 
