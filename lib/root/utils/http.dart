@@ -25,7 +25,7 @@ class HttpRequest {
       }
     }
   }
-  
+
   static Future request(RequestBuilder requestBuilder) async {
     Map data = requestBuilder.data == null ? Map() : requestBuilder.data;
 
@@ -46,13 +46,9 @@ class HttpRequest {
     return result;
   }
 
-  static Map<String, dynamic> _headers(List<Map<String, dynamic>> headerSetting) {
+  static Map<String, dynamic> _headers(Map<String, dynamic> headerSetting) {
     Map<String, dynamic> _headers = Map();
-    headerSetting.forEach((element) {
-      element.forEach((key, value) {
-        _headers[key] = value;
-      });
-    });
+    headerSetting.forEach((key, value) => _headers[key] = value);
     return _headers;
   }
 

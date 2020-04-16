@@ -4,7 +4,7 @@ class RequestBuilder {
   final String url;
   final String token;
   final Map data;
-  final List<Map<String, dynamic>> headerSetting;
+  final Map<String, dynamic> headerSetting;
 
   RequestBuilder({
     @required this.url,
