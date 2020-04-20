@@ -29,9 +29,9 @@ class KeyInfo {
 
 class RootView {
   final BuildContext context;
-  final RootConfig config;
+//  final RootConfig config;
 
-  RootView(this.context, {this.config});
+  RootView(this.context); // , {this.config}
 
   Widget build({
     @required Widget body,
@@ -94,7 +94,7 @@ class RootView {
   void setBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
 
   Future request(RequestBuilder requestBuilder) async {
-    return await HttpRequest.request(requestBuilder, requestBaseUrl: config.baseUrl);
+    return await HttpRequest.request(requestBuilder);
 //    try {
 //      Map response = await HttpRequest.request(requestBuilder);
 //      if (MapUtil.getNum(response, 'result') > 0) {
