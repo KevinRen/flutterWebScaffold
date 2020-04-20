@@ -26,7 +26,8 @@ class HttpRequest {
     }
   }
 
-  static Future request(RequestBuilder requestBuilder) async {
+  static Future request(RequestBuilder requestBuilder, {String requestBaseUrl}) async {
+    if (baseUrl == null) baseUrl = requestBaseUrl;
     Map data = requestBuilder.data == null ? Map() : requestBuilder.data;
 
     Dio dio = _createInstance();

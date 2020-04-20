@@ -11,9 +11,11 @@ typedef Interceptor(Map response);
 
 class RootConfig {
   final String baseUrl;
+  final Interceptor interceptor;
 
   RootConfig({
     @required this.baseUrl,
+    this.interceptor,
   });
 }
 
@@ -27,8 +29,9 @@ class KeyInfo {
 
 class RootView {
   final BuildContext context;
+  final RootConfig config;
 
-  RootView(this.context);
+  RootView(this.context, {this.config});
 
   Widget build({
     @required Widget body,
@@ -91,7 +94,7 @@ class RootView {
   void setBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
 
   Future request(RequestBuilder requestBuilder) async {
-    return await HttpRequest.request(requestBuilder);
+    return await HttpRequest.request(requestBuilder, requestBaseUrl: config.baseUrl);
 //    try {
 //      Map response = await HttpRequest.request(requestBuilder);
 //      if (MapUtil.getNum(response, 'result') > 0) {
