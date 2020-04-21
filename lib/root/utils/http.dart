@@ -5,6 +5,7 @@ import '../comm.dart';
 class HttpRequest {
   static Dio _dio;
   static String baseUrl;
+  static Function interceptor;
   static const int _CONNECT_TIMEOUT = 10000;
   static const int _RECEIVE_TIMEOUT = 30000;
 
@@ -44,7 +45,7 @@ class HttpRequest {
       result = jsonDecode(result);
     }
 
-    return result;
+    return interceptor == null ? result : interceptor(result);
   }
 
   static Map<String, dynamic> _headers(Map<String, dynamic> headerSetting) {

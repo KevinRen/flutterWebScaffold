@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'utils/http.dart';
 import 'comm/comm.dart';
 import 'comm.dart';
-import 'package:dio/dio.dart';
-import 'utils/map.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
 typedef Interceptor(Map response);
@@ -91,36 +89,10 @@ class RootView {
     return _query;
   }
 
-  void setBaseUrl(String baseUrl) => HttpRequest.baseUrl = baseUrl;
-
-  Future request(RequestBuilder requestBuilder) async {
-    return await HttpRequest.request(requestBuilder);
-//    try {
-//      Map response = await HttpRequest.request(requestBuilder);
-//      if (MapUtil.getNum(response, 'result') > 0) {
-//        if (response == null || response['data'] == null) {
-////        ToastUtil.show('数据异常,请联系管理员!');
-//          throw Error();
-//        } else if (MapUtil.getNum(response, 'result') == 101) {
-//          print('...非强制更新');
-//          return response;
-//        } else {
-//          return response;
-//        }
-//      } else {
-//        if (MapUtil.getNum(response, 'result') == -101) {
-//          print('...强制更新');
-//        } else if (MapUtil.getNum(response, 'result') == -100) {
-//          /// TODO:
-//          print('未登录');
-//        } else {
-//          print(MapUtil.getStr(response, 'message'));
-//        }
-//      }
-////      return config.interceptor == null ? response : config.interceptor(response);
-//    } on DioError catch (e) {
-//      print(e);
-//      throw Error();
-//    }
+  void setRequestConfig(RootConfig config) {
+    HttpRequest.baseUrl = config.baseUrl;
+    if (config.interceptor != null) HttpRequest.interceptor = config.interceptor;
   }
+
+  Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 }
