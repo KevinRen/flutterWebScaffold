@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
@@ -18,13 +15,12 @@ class SocketUtil {
   Function _onDone;
   Function _onError;
 
-  Future open(String url, String param1, String param2) async {
-    final timeSpan = DateTime.now().millisecondsSinceEpoch;
-    final sign = _encryptWebSocketSign(param1, param2, timeSpan);
+  Future open(String url, String param1, String param2, String sign) async {
+    int timeSpan = DateTime.now().millisecondsSinceEpoch;
     if (_channel != null) {
       _channel.sink.close();
     }
-    _url = url + "/" + param1 + "/" + param2 + "/" + timeSpan.toString() + "/" + sign;
+    _url = url + '/' + param1 + '/' + param2 + '/' + timeSpan.toString() + '/' + sign;
     _channel = IOWebSocketChannel.connect(_url, pingInterval: pingTime);
     _isConnect = true;
     print('$_TAG -- 连接成功');
@@ -84,24 +80,5 @@ class SocketUtil {
       _channel.sink.close(status.goingAway);
       print('连接关闭成功 -- $_TAG');
     }
-  }
-
-  String _encryptWebSocketSign(String param1, String param2, timeSpan) {
-    final key = 'syyy^&*syyy!@#Sy';
-    final secretKey = 'syyy1q2w3e';
-    final str = secretKey + '|' + param1 + '|' + param2 + '|' + timeSpan.toString();
-
-    final convertContent = _md5(str);
-    final encrypter = Encrypter(AES(Key.fromUtf8(key), mode: AESMode.ecb, padding: 'PKCS7'));
-    final aecText = _md5(encrypter.encrypt(convertContent).base16);
-
-    return aecText.toString();
-  }
-
-  /// md5 加密
-  static String _md5(String data) {
-    var content = new Utf8Encoder().convert(data);
-    var digest = md5.convert(content);
-    return digest.toString();
   }
 }
