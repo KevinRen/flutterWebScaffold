@@ -61,6 +61,7 @@ class HttpRequest {
       /// 全局属性：请求前缀、连接超时时间、响应超时时间
       BaseOptions options = BaseOptions(
         baseUrl: baseUrl,
+        contentType: Headers.jsonContentType,
         connectTimeout: _CONNECT_TIMEOUT,
         receiveTimeout: _RECEIVE_TIMEOUT,
       );
