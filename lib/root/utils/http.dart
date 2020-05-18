@@ -38,7 +38,8 @@ class HttpRequest {
 
     CancelToken cancelToken = CancelToken();
     if (requestBuilder.token != null && requestBuilder.token.isNotEmpty) tokens[requestBuilder.token] = cancelToken;
-    Response response = await dio.post(requestBuilder.url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
+    Response response = await dio.post(requestBuilder.url, data: data, cancelToken: cancelToken);
+//    Response response = await dio.post(requestBuilder.url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
 
     var result = response.data;
     if (result is String) {
