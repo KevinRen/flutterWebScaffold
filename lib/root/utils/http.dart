@@ -7,7 +7,7 @@ typedef Interceptor(Map data, DataType dataType);
 class HttpRequest {
   static Dio _dio;
   static String baseUrl;
-  static Function interceptor;
+  static Interceptor interceptor;
   static const int _CONNECT_TIMEOUT = 10000;
   static const int _RECEIVE_TIMEOUT = 30000;
 
