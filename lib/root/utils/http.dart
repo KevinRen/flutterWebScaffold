@@ -40,8 +40,8 @@ class HttpRequest {
 
     CancelToken cancelToken = CancelToken();
     if (requestBuilder.token != null && requestBuilder.token.isNotEmpty) tokens[requestBuilder.token] = cancelToken;
-    Response response = await dio.post(requestBuilder.url, data: data, cancelToken: cancelToken);
-//    Response response = await dio.post(requestBuilder.url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
+//    Response response = await dio.post(requestBuilder.url, data: data, cancelToken: cancelToken);
+    Response response = await dio.post(requestBuilder.url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
 
     var result = response.data;
     if (result is String) {
@@ -63,7 +63,7 @@ class HttpRequest {
       /// 全局属性：请求前缀、连接超时时间、响应超时时间
       BaseOptions options = BaseOptions(
         baseUrl: baseUrl,
-        contentType: Headers.jsonContentType,
+//        contentType: Headers.jsonContentType,
         connectTimeout: _CONNECT_TIMEOUT,
         receiveTimeout: _RECEIVE_TIMEOUT,
       );
