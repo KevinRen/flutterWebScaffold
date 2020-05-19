@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-enum DataType { String, Map, Int, List, Null }
+enum DataType { String, Map, Int, List }
 
 class RequestBuilder {
   final String url;
