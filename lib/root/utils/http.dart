@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 import '../comm.dart';
 
+typedef Interceptor(Map data, DataType dataType);
+
 class HttpRequest {
   static Dio _dio;
   static String baseUrl;
@@ -17,15 +19,15 @@ class HttpRequest {
 
   static Map<String, CancelToken> tokens = Map();
 
-  static _cancel(String token) {
-    if (token.isNotEmpty && tokens[token] != null) {
-      CancelToken cancelToken = tokens[token];
-      if (!cancelToken.isCancelled) {
-        cancelToken.cancel('cancelled');
-        tokens.remove(token);
-      }
-    }
-  }
+//  static _cancel(String token) {
+//    if (token.isNotEmpty && tokens[token] != null) {
+//      CancelToken cancelToken = tokens[token];
+//      if (!cancelToken.isCancelled) {
+//        cancelToken.cancel('cancelled');
+//        tokens.remove(token);
+//      }
+//    }
+//  }
 
   static Future request(RequestBuilder requestBuilder) async {
 //    if (baseUrl == null) baseUrl = requestBaseUrl;
@@ -46,7 +48,7 @@ class HttpRequest {
       result = jsonDecode(result);
     }
 
-    return interceptor == null ? result : interceptor(result);
+    return interceptor == null ? result : interceptor(result, requestBuilder.dataType);
   }
 
   static Map<String, dynamic> _headers(Map<String, dynamic> headerSetting) {
