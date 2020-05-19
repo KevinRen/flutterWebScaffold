@@ -5,7 +5,6 @@ import 'comm/comm.dart';
 import 'comm.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
-typedef Interceptor(Map response);
 
 class RootConfig {
   final String baseUrl;
