@@ -19,16 +19,6 @@ class HttpRequest {
 
   static Map<String, CancelToken> tokens = Map();
 
-//  static _cancel(String token) {
-//    if (token.isNotEmpty && tokens[token] != null) {
-//      CancelToken cancelToken = tokens[token];
-//      if (!cancelToken.isCancelled) {
-//        cancelToken.cancel('cancelled');
-//        tokens.remove(token);
-//      }
-//    }
-//  }
-
   static Future request(RequestBuilder requestBuilder) async {
 //    if (baseUrl == null) baseUrl = requestBaseUrl;
     Map data = requestBuilder.data == null ? Map() : requestBuilder.data;

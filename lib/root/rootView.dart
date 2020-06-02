@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'utils/http.dart';
+import 'utils/socket.dart';
 import 'comm/comm.dart';
 import 'comm.dart';
 
@@ -94,4 +95,10 @@ class RootView {
   }
 
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
+
+  SocketUtil socketConnect(String url, String params) {
+    SocketUtil socketUtil = SocketUtil();
+    socketUtil.open(url, params);
+    return socketUtil;
+  }
 }

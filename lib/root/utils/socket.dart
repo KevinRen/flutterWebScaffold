@@ -15,12 +15,11 @@ class SocketUtil {
   Function _onDone;
   Function _onError;
 
-  Future open(String url, String param1, String param2, String sign) async {
-    int timeSpan = DateTime.now().millisecondsSinceEpoch;
+  Future open(String url, String params) async {
     if (_channel != null) {
       _channel.sink.close();
     }
-    _url = url + '/' + param1 + '/' + param2 + '/' + timeSpan.toString() + '/' + sign;
+    _url = url + '/' + params;
     _channel = IOWebSocketChannel.connect(_url, pingInterval: pingTime);
     _isConnect = true;
     print('$_TAG -- 连接成功');
