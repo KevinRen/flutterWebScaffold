@@ -16,10 +16,11 @@ class SocketUtil {
   Function _onError;
 
   Future open(String url, String params) async {
+    String sign = '';
     if (_channel != null) {
       _channel.sink.close();
     }
-    _url = url + '/' + params;
+    _url = '$url/$params/$sign';
     _channel = IOWebSocketChannel.connect(_url, pingInterval: pingTime);
     _isConnect = true;
     print('$_TAG -- 连接成功');
