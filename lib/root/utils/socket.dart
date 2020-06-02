@@ -1,4 +1,4 @@
-import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/html.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
 typedef VoidCallback = void Function(String message);
@@ -8,7 +8,7 @@ class SocketUtil {
 
   static const Duration pingTime = Duration(seconds: 2);
 
-  IOWebSocketChannel _channel;
+  HtmlWebSocketChannel _channel;
   String _url;
   bool _isConnect = false;
   VoidCallback _callback;
@@ -21,13 +21,13 @@ class SocketUtil {
       _channel.sink.close();
     }
     _url = '$url/$params/$sign';
-    _channel = IOWebSocketChannel.connect(_url, pingInterval: pingTime);
+    _channel = HtmlWebSocketChannel.connect(_url); // , pingInterval: pingTime
     _isConnect = true;
     print('$_TAG -- 连接成功');
   }
 
   Future reopen() async {
-    _channel = IOWebSocketChannel.connect(_url, pingInterval: pingTime);
+    _channel = HtmlWebSocketChannel.connect(_url); // , pingInterval: pingTime
     _isConnect = true;
     addListen(_callback, _onDone, _onError);
     print('$_TAG -- 重新连接成功');

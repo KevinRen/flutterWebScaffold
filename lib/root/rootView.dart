@@ -96,7 +96,7 @@ class RootView {
 
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 
-  SocketUtil socketConnect(String url, String params) {
+  Future socketConnect(String url, String params) async {
     SocketUtil socketUtil = SocketUtil();
     socketUtil.open(url, params);
     return socketUtil;
