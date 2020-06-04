@@ -27,6 +27,7 @@ class KeyInfo {
 
 class RootView {
   final BuildContext context;
+  final SocketUtil socketUtil = SocketUtil();
 //  final RootConfig config;
 
   RootView(this.context); // , {this.config}
@@ -97,8 +98,11 @@ class RootView {
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 
   SocketUtil socketConnect(String url, String params) {
-    SocketUtil socketUtil = SocketUtil();
     socketUtil.open(url, params);
     return socketUtil;
   }
+
+  void socketClose() => socketUtil.close();
+
+  void socketReset() => socketUtil.reopen();
 }
