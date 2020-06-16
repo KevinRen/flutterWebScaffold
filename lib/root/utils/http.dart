@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import '../comm.dart';
 
-typedef Interceptor(Map data, DataType dataType);
+typedef Interceptor(BuildContext context, Map data, DataType dataType);
 
 class HttpRequest {
   static Dio _dio;
