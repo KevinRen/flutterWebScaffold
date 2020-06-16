@@ -39,7 +39,7 @@ class HttpRequest {
       result = jsonDecode(result);
     }
 
-    return interceptor == null ? result : interceptor(result, requestBuilder.dataType);
+    return interceptor == null ? result : interceptor(requestBuilder.context, result, requestBuilder.dataType);
   }
 
   static Map<String, dynamic> _headers(Map<String, dynamic> headerSetting) {
