@@ -10,10 +10,12 @@ typedef void OnKeyCallback(KeyInfo keyInfo);
 class RootConfig {
   final String baseUrl;
   final Interceptor interceptor;
+  final ContentType contentType;
 
   RootConfig({
     @required this.baseUrl,
     this.interceptor,
+    this.contentType,
   });
 }
 
@@ -93,6 +95,7 @@ class RootView {
   void setRequestConfig(RootConfig config) {
     HttpRequest.baseUrl = config.baseUrl;
     if (config.interceptor != null) HttpRequest.interceptor = config.interceptor;
+    if (config.contentType != null) HttpRequest.contentType = config.contentType;
   }
 
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
