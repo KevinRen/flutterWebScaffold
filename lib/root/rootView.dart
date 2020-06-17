@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:connectivity_web/connectivity_web.dart';
 import 'utils/http.dart';
 import 'utils/socket.dart';
 import 'comm/comm.dart';
@@ -98,7 +99,13 @@ class RootView {
     if (config.contentType != null) HttpRequest.contentType = config.contentType;
   }
 
-  Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
+  Future request(RequestBuilder requestBuilder) async {
+    if (ConnectivityWeb().isOnline.value) {
+      return await HttpRequest.request(requestBuilder);
+    } else {
+      return await Future(() => false);
+    }
+  }
 
   SocketUtil socketConnect(String url, String params) {
     socketUtil.open(url, params);
