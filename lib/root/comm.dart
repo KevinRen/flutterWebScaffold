@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 enum DataType { String, Map, Int, List }
+enum ContentType { FormData, Json }
 
 class RequestBuilder {
   final BuildContext context;

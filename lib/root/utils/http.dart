@@ -9,6 +9,7 @@ class HttpRequest {
   static Dio _dio;
   static String baseUrl;
   static Interceptor interceptor;
+  static ContentType contentType = ContentType.FormData;
   static const int _CONNECT_TIMEOUT = 10000;
   static const int _RECEIVE_TIMEOUT = 30000;
 
@@ -21,7 +22,6 @@ class HttpRequest {
   static Map<String, CancelToken> tokens = Map();
 
   static Future request(RequestBuilder requestBuilder) async {
-//    if (baseUrl == null) baseUrl = requestBaseUrl;
     Map data = requestBuilder.data == null ? Map() : requestBuilder.data;
 
     Dio dio = _createInstance();
@@ -29,10 +29,16 @@ class HttpRequest {
       dio.options.headers = _headers(requestBuilder.headerSetting);
     }
 
+    getDataByContentType(data) {
+      switch(contentType) {
+        case ContentType.FormData: return FormData.fromMap(Map.unmodifiable(data));
+        case ContentType.Json: return data;
+      }
+    }
+
     CancelToken cancelToken = CancelToken();
     if (requestBuilder.token != null && requestBuilder.token.isNotEmpty) tokens[requestBuilder.token] = cancelToken;
-//    Response response = await dio.post(requestBuilder.url, data: data, cancelToken: cancelToken);
-    Response response = await dio.post(requestBuilder.url, data: FormData.fromMap(Map.unmodifiable(data)), cancelToken: cancelToken);
+    Response response = await dio.post(requestBuilder.url, data: getDataByContentType(data), cancelToken: cancelToken);
 
     var result = response.data;
     if (result is String) {
@@ -54,7 +60,7 @@ class HttpRequest {
       /// 全局属性：请求前缀、连接超时时间、响应超时时间
       BaseOptions options = BaseOptions(
         baseUrl: baseUrl,
-//        contentType: Headers.jsonContentType,
+        contentType: contentType == ContentType.FormData ? Headers.formUrlEncodedContentType : Headers.jsonContentType,
         connectTimeout: _CONNECT_TIMEOUT,
         receiveTimeout: _RECEIVE_TIMEOUT,
       );
