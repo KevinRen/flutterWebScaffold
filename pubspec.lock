@@ -50,13 +50,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.14.12"
-  connectivity_web:
-    dependency: "direct main"
-    description:
-      name: connectivity_web
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.0+2"
   convert:
     dependency: transitive
     description:
@@ -97,13 +90,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_mobx:
-    dependency: transitive
-    description:
-      name: flutter_mobx
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -130,13 +116,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.8"
-  mobx:
-    dependency: transitive
-    description:
-      name: mobx
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.2.1"
   path:
     dependency: transitive
     description:

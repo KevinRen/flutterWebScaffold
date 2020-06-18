@@ -7,17 +7,17 @@ import 'comm.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
 
-class RootConfig {
-  final String baseUrl;
-  final Interceptor interceptor;
-  final ContentType contentType;
-
-  RootConfig({
-    @required this.baseUrl,
-    this.interceptor,
-    this.contentType,
-  });
-}
+//class RootConfig {
+//  final String baseUrl;
+//  final Interceptor interceptor;
+//  final ContentType contentType;
+//
+//  RootConfig({
+//    @required this.baseUrl,
+//    this.interceptor,
+//    this.contentType,
+//  });
+//}
 
 enum KeyType { keyDown, keyUp }
 
@@ -30,9 +30,8 @@ class KeyInfo {
 class RootView {
   final BuildContext context;
   final SocketUtil socketUtil = SocketUtil();
-//  final RootConfig config;
 
-  RootView(this.context); // , {this.config}
+  RootView(this.context);
 
   Widget build({
     @required Widget body,
@@ -92,11 +91,11 @@ class RootView {
     return _query;
   }
 
-  void setRequestConfig(RootConfig config) {
-    HttpRequest.baseUrl = config.baseUrl;
-    if (config.interceptor != null) HttpRequest.interceptor = config.interceptor;
-    if (config.contentType != null) HttpRequest.contentType = config.contentType;
-  }
+//  void setRequestConfig(RootConfig config) {
+//    HttpRequest.baseUrl = config.baseUrl;
+//    if (config.interceptor != null) HttpRequest.interceptor = config.interceptor;
+//    if (config.contentType != null) HttpRequest.contentType = config.contentType;
+//  }
 
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 
