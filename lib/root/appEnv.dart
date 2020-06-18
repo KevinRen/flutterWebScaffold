@@ -11,14 +11,12 @@ enum Env {
 }
 
 class RootConfig {
-  final Env env;
   final String baseUrl;
   final Interceptor interceptor;
   final ContentType contentType;
   final Map<dynamic, RouteBuild> routers;
 
   RootConfig({
-    @required this.env,
     @required this.routers,
     @required this.baseUrl,
     this.interceptor,
@@ -30,7 +28,6 @@ class AppEnv {
   static Env env = Env.dev;
 
   static void setAppConfig(RootConfig config) {
-    env = config.env;
     HttpRequest.baseUrl = config.baseUrl;
     AppRouter.routers = config.routers;
     if (config.interceptor != null) HttpRequest.interceptor = config.interceptor;
