@@ -15,6 +15,8 @@ class SocketUtil {
   Function _onDone;
   Function _onError;
 
+  HtmlWebSocketChannel get getChannel => _channel;
+
   Future open(String url, String params) async {
     String sign = '';
     if (_channel != null) {

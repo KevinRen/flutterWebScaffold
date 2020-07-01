@@ -4,6 +4,7 @@ import 'utils/http.dart';
 import 'utils/socket.dart';
 import 'comm/comm.dart';
 import 'comm.dart';
+import 'package:web_socket_channel/html.dart';
 
 typedef void OnKeyCallback(KeyInfo keyInfo);
 
@@ -85,6 +86,8 @@ class RootView {
     socketUtil.open(url, params);
     return socketUtil;
   }
+
+  HtmlWebSocketChannel getSocketChannel() => socketUtil.getChannel;
 
   void socketClose() => socketUtil.close();
 
