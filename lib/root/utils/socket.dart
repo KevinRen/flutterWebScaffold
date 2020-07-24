@@ -9,7 +9,7 @@ class SocketUtil {
   static const Duration pingTime = Duration(seconds: 2);
 
   HtmlWebSocketChannel _channel;
-  String _url;
+//  String _url;
   bool _isConnect = false;
   VoidCallback _callback;
   Function _onDone;
@@ -17,19 +17,19 @@ class SocketUtil {
 
   HtmlWebSocketChannel get getChannel => _channel;
 
-  Future open(String url, String params) async {
-    String sign = '';
+  Future open(String url) async {
+//    String sign = '';
     if (_channel != null) {
       _channel.sink.close();
     }
-    _url = '$url/$params/$sign';
-    _channel = HtmlWebSocketChannel.connect(_url); // , pingInterval: pingTime
+//    _url = '$url/$params/$sign';
+    _channel = HtmlWebSocketChannel.connect(url); // , pingInterval: pingTime
     _isConnect = true;
     print('$_TAG -- 连接成功');
   }
 
-  Future reopen() async {
-    _channel = HtmlWebSocketChannel.connect(_url); // , pingInterval: pingTime
+  Future reopen(String url) async {
+    _channel = HtmlWebSocketChannel.connect(url); // , pingInterval: pingTime
     _isConnect = true;
     addListen(_callback, _onDone, _onError);
     print('$_TAG -- 重新连接成功');

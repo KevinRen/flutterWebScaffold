@@ -83,7 +83,7 @@ class RootView {
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 
   SocketUtil socketConnect(String url, String params) {
-    socketUtil.open(url, params);
+    socketUtil.open(url);
     return socketUtil;
   }
 
@@ -91,5 +91,5 @@ class RootView {
 
   void socketClose() => socketUtil.close();
 
-  void socketReset() => socketUtil.reopen();
+  void socketReset(String url) => socketUtil.reopen(url);
 }
