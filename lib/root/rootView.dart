@@ -50,6 +50,8 @@ class RootView {
     }
   }
 
+  Env get getEnv => AppEnv.env;
+
   gotoPage(BuildContext context, {
       String path,
       Map query,
