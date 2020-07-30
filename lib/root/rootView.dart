@@ -6,7 +6,7 @@ import 'comm/comm.dart';
 import 'comm.dart';
 import 'package:web_socket_channel/html.dart';
 
-enum BuildType {
+enum PageType {
   Root,
   Page,
   Component
@@ -25,12 +25,12 @@ class RootView {
 
   Widget build({
     @required Widget body,
-    BuildType type = BuildType.Component,
+    PageType type = PageType.Component,
     Color backgroundColor: Colors.white,
     ThemeData themeData,
   }) {
     switch(type) {
-      case BuildType.Root:
+      case PageType.Root:
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: themeData == null ? defaultTheme : themeData,
@@ -40,7 +40,7 @@ class RootView {
             body: body,
           )
         );
-      case BuildType.Page:
+      case PageType.Page:
         return Scaffold(
           backgroundColor: backgroundColor,
           body: body,
