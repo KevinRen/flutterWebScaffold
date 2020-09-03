@@ -26,6 +26,7 @@ class RootConfig {
 
 class AppEnv {
   static Env env = Env.dev;
+  static bool useScreenSize = false;
 
   static void setAppConfig(RootConfig config) {
     HttpRequest.baseUrl = config.baseUrl;
