@@ -97,6 +97,8 @@ class RootView {
 
   double fontSize(double size) => AppEnv.useScreenSize ? AppSize().setSp(size) : size;
 
+  Map<String, double> screenInfo() => {'width': AppSize.screenWidth, 'height': AppSize.screenHeight};
+
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 
   SocketUtil socketConnect(String url, String params) {
