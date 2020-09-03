@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:web_scaffold/web_scaffold.dart';
 import 'utils/http.dart';
 import 'utils/socket.dart';
+import 'utils/size.dart';
 import 'comm/comm.dart';
 import 'comm.dart';
 import 'package:web_socket_channel/html.dart';
@@ -9,7 +10,37 @@ import 'package:web_socket_channel/html.dart';
 enum PageType {
   Root,
   Page,
-  Component
+  Component,
+}
+
+extension PageTypeExtension on PageType {
+  Widget build(Widget body, {
+    Color backgroundColor: Colors.white,
+    ThemeData themeData,
+  }) {
+    switch(this) {
+      case PageType.Root:
+        if (AppEnv.useScreenSize) {
+          AppSize.init(width: 750, height: 1334, allowFontScaling: false);
+        }
+        return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeData == null ? defaultTheme : themeData,
+            onGenerateRoute: AppRouter.setupRouters,
+            home: Scaffold(
+              backgroundColor: backgroundColor,
+              body: body,
+            ),
+        );
+      case PageType.Page:
+        return Scaffold(
+          backgroundColor: backgroundColor,
+          body: body,
+        );
+      default:
+        return body;
+    }
+  }
 }
 
 ThemeData defaultTheme = ThemeData(
@@ -28,27 +59,7 @@ class RootView {
     PageType type = PageType.Component,
     Color backgroundColor: Colors.white,
     ThemeData themeData,
-  }) {
-    switch(type) {
-      case PageType.Root:
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: themeData == null ? defaultTheme : themeData,
-          onGenerateRoute: AppRouter.setupRouters,
-          home: Scaffold(
-            backgroundColor: backgroundColor,
-            body: body,
-          )
-        );
-      case PageType.Page:
-        return Scaffold(
-          backgroundColor: backgroundColor,
-          body: body,
-        );
-      default:
-        return body;
-    }
-  }
+  }) => type.build(body, backgroundColor: backgroundColor, themeData: themeData);
 
   Env get getEnv => AppEnv.env;
 
@@ -81,6 +92,10 @@ class RootView {
 
     return _query;
   }
+
+  double size(double size) => AppEnv.useScreenSize ? AppSize().size(size) : size;
+
+  double fontSize(double size) => AppEnv.useScreenSize ? AppSize().setSp(size) : size;
 
   Future request(RequestBuilder requestBuilder) async => await HttpRequest.request(requestBuilder);
 
