@@ -44,7 +44,6 @@ extension PageTypeExtension on PageType {
 }
 
 ThemeData defaultTheme = ThemeData(
-  platform: TargetPlatform.iOS,
   highlightColor: Colors.transparent,
   splashColor: Colors.transparent,
   primaryColor: Colors.white,
